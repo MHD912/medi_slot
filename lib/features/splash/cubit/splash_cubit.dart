@@ -36,7 +36,7 @@ class SplashCubit extends Cubit<SplashState> {
     }
 
     final isLoggedIn = preferences.getBool(AppPreferences.isLoggedIn);
-    if (isLoggedIn != false) {
+    if (isLoggedIn == true) {
       emit(
         SplashEnd(
           routeName: AppRoutes.home.name,

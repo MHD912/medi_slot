@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/home/page/home_page.dart';
+import '../../features/onboarding/onboarding_page/cubit/onboarding_cubit.dart';
 import '../../features/onboarding/onboarding_page/page/onboarding_page.dart';
 import '../../features/onboarding/welcome_page/page/welcome_page.dart';
 import '../../features/splash/page/splash_screen.dart';
@@ -20,7 +22,10 @@ class AppRouter {
             path: 'onboarding',
             name: AppRoutes.onboarding.name,
             pageBuilder: TransitionFactory.fadingPageBuilder(
-              child: const OnboardingPage(),
+              child: BlocProvider(
+                create: (context) => OnboardingCubit(),
+                child: OnboardingPage(),
+              ),
             ),
           ),
           GoRoute(
