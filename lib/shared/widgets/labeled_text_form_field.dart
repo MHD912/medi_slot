@@ -11,12 +11,14 @@ class LabeledTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final bool? obscureText;
   final void Function()? suffixOnPressed;
+  final TextInputType? keyboardType;
   const LabeledTextFormField({
     super.key,
     required this.label,
     required this.controller,
     this.obscureText,
     this.suffixOnPressed,
+    this.keyboardType,
   });
 
   @override
@@ -38,6 +40,7 @@ class LabeledTextFormField extends StatelessWidget {
             controller: controller,
             // onTapOutside: (event) => FocusScope.of(context).unfocus(),
             obscureText: obscureText ?? false,
+            keyboardType: keyboardType,
             style: AppStyles.f16w400OnSurface(context),
             decoration: InputDecoration(
               suffixIcon: (obscureText == null)

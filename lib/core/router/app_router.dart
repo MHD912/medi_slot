@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:medi_slot/features/authentication/login/cubit/login_cubit.dart';
+import 'package:medi_slot/features/authentication/login/page/login_page.dart';
 import 'package:medi_slot/features/authentication/signup/cubit/signup_cubit.dart';
 import 'package:medi_slot/features/authentication/signup/page/signup_page.dart';
 
@@ -51,7 +53,10 @@ class AppRouter {
                 path: 'login',
                 name: AppRoutes.login.name,
                 pageBuilder: TransitionFactory.slidingPageBuilder(
-                  child: const Placeholder(),
+                  child: BlocProvider<LoginCubit>(
+                    create: (context) => LoginCubit(),
+                    child: const LoginPage(),
+                  ),
                 ),
                 routes: <RouteBase>[
                   GoRoute(

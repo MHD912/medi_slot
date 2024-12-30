@@ -46,6 +46,7 @@ class SignupPage extends StatelessWidget {
                     LabeledTextFormField(
                       label: AppStrings.email,
                       controller: cubit.emailController,
+                      keyboardType: TextInputType.emailAddress,
                     ),
                     BlocBuilder<SignupCubit, SignupState>(
                       buildWhen: (_, currentState) =>
