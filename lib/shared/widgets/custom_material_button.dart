@@ -34,7 +34,7 @@ class CustomMaterialButton extends StatelessWidget {
       child: Text(
         label,
         style: labelStyle ??
-            AppStyles.f16w700(context).copyWith(
+            AppStyles.f16w700.copyWith(
               color: Theme.of(context).colorScheme.onPrimary,
             ),
       ).tr(),

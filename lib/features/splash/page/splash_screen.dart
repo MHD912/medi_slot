@@ -21,6 +21,7 @@ class SplashScreen extends StatelessWidget {
           );
         },
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Center(
             child: SvgPicture.asset(
               AppAssets.scalable.appLogo,

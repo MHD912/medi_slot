@@ -13,6 +13,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           Expanded(
@@ -50,7 +51,7 @@ class WelcomePage extends StatelessWidget {
       label: AppStrings.login,
       onPressed: () => context.pushNamed(AppRoutes.login.name),
       color: Theme.of(context).colorScheme.primaryContainer,
-      labelStyle: AppStyles.f16w700(context).copyWith(
+      labelStyle: AppStyles.f16w700.copyWith(
         color: Theme.of(context).colorScheme.primary,
       ),
     );

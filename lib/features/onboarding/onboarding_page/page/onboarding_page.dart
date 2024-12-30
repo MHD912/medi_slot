@@ -39,6 +39,7 @@ class OnboardingPage extends StatelessWidget {
         context.pushReplacementNamed(AppRoutes.welcome.name);
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Column(
             children: [

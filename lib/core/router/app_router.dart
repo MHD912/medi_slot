@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:medi_slot/features/authentication/signup/cubit/signup_cubit.dart';
+import 'package:medi_slot/features/authentication/signup/page/signup_page.dart';
 
 import '../../features/home/page/home_page.dart';
 import '../../features/onboarding/onboarding_page/cubit/onboarding_cubit.dart';
@@ -22,7 +24,7 @@ class AppRouter {
             path: 'onboarding',
             name: AppRoutes.onboarding.name,
             pageBuilder: TransitionFactory.fadingPageBuilder(
-              child: BlocProvider(
+              child: BlocProvider<OnboardingCubit>(
                 create: (context) => OnboardingCubit(),
                 child: OnboardingPage(),
               ),
@@ -39,7 +41,10 @@ class AppRouter {
                 path: 'signup',
                 name: AppRoutes.signup.name,
                 pageBuilder: TransitionFactory.slidingPageBuilder(
-                  child: const Placeholder(),
+                  child: BlocProvider<SignupCubit>(
+                    create: (context) => SignupCubit(),
+                    child: const SignupPage(),
+                  ),
                 ),
               ),
               GoRoute(
