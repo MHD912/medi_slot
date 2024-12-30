@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medi_slot/core/constants/app_assets.dart';
+import 'package:medi_slot/core/constants/app_routes.dart';
 import 'package:medi_slot/features/authentication/signup/cubit/signup_cubit.dart';
 
 import '../../../../core/constants/app_strings.dart';
@@ -125,9 +127,6 @@ class SignupPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 20.h,
-                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -138,7 +137,9 @@ class SignupPage extends StatelessWidget {
                       ),
                     ).tr(),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => context.pushReplacementNamed(
+                        AppRoutes.login.name,
+                      ),
                       style: ButtonStyle(
                         visualDensity: VisualDensity.compact,
                         padding: WidgetStatePropertyAll(
@@ -153,9 +154,6 @@ class SignupPage extends StatelessWidget {
                       ).tr(),
                     ),
                   ],
-                ),
-                SizedBox(
-                  height: 20.h,
                 ),
               ],
             ),

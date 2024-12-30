@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: 40.h,
+                  height: 20.h,
                 ),
                 Center(
                   child: Text(
@@ -44,9 +44,9 @@ class LoginPage extends StatelessWidget {
                 ),
                 _forgotPasswordButton(context),
                 SizedBox(
-                  height: 178.h,
+                  height: 165.h,
                 ),
-                _loginButtonWidget(),
+                _loginButtonWidget(context),
                 SizedBox(
                   height: 38.h,
                 ),
@@ -129,10 +129,12 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _loginButtonWidget() {
+  Widget _loginButtonWidget(BuildContext context) {
     return CustomMaterialButton(
       label: AppStrings.login,
-      onPressed: () {},
+      onPressed: () => context.pushNamed(
+        AppRoutes.home.name,
+      ),
     );
   }
 
@@ -180,7 +182,9 @@ class LoginPage extends StatelessWidget {
           ),
         ).tr(),
         TextButton(
-          onPressed: () {},
+          onPressed: () => context.pushReplacementNamed(
+            AppRoutes.signup.name,
+          ),
           style: ButtonStyle(
             visualDensity: VisualDensity.compact,
             padding: WidgetStatePropertyAll(
