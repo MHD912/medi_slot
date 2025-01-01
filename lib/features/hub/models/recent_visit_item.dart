@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medi_slot/features/hub/widgets/recent_visit/cubit/recent_visit_cubit.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_strings.dart';
+import '../widgets/recent_visit/cubit/recent_visit_cubit.dart';
 import '../widgets/recent_visit/recent_visit_widget.dart';
 
 final List<Widget> recentVisitsList = [

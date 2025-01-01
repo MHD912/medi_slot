@@ -2,13 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:medi_slot/core/constants/app_assets.dart';
-import 'package:medi_slot/core/theme/app_styles.dart';
-import 'package:medi_slot/core/theme/app_colors.dart';
-import 'package:medi_slot/features/hub/models/recent_visit_item.dart';
 
+import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_styles.dart';
 import '../models/category_list_item.dart';
+import '../models/recent_visit_item.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});

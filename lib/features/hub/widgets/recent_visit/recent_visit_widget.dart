@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:medi_slot/core/constants/app_assets.dart';
-import 'package:medi_slot/core/theme/app_styles.dart';
-import 'package:medi_slot/features/hub/widgets/recent_visit/cubit/recent_visit_cubit.dart';
+
+import '../../../../core/constants/app_assets.dart';
+import '../../../../core/theme/app_styles.dart';
+import 'cubit/recent_visit_cubit.dart';
 
 class RecentVisitWidget extends StatelessWidget {
   final String assetName, doctorName;

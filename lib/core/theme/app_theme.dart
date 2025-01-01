@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:medi_slot/core/utilities/global_variables.dart';
-import 'package:medi_slot/shared/localization/cubit/localization_cubit.dart';
 
+import '../../shared/localization/cubit/localization_cubit.dart';
+import '../utilities/global_variables.dart';
 import 'app_colors.dart';
 
 class AppTheme {

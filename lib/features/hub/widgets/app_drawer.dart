@@ -4,19 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:medi_slot/core/constants/app_locals.dart';
-import 'package:medi_slot/core/constants/app_routes.dart';
-import 'package:medi_slot/core/constants/app_strings.dart';
-import 'package:medi_slot/core/theme/app_styles.dart';
-import 'package:medi_slot/features/hub/cubit/hub_cubit.dart';
-import 'package:medi_slot/shared/localization/cubit/localization_cubit.dart';
-import 'package:medi_slot/shared/theme/cubit/theme_cubit.dart';
-import 'package:medi_slot/shared/widgets/error_dialog.dart';
-import 'package:medi_slot/shared/widgets/loading_dialog.dart';
+
 import 'package:restart_app/restart_app.dart';
 
 import '../../../core/constants/app_assets.dart';
+import '../../../core/constants/app_locals.dart';
+import '../../../core/constants/app_routes.dart';
+import '../../../core/constants/app_strings.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_styles.dart';
+import '../../../shared/localization/cubit/localization_cubit.dart';
+import '../../../shared/theme/cubit/theme_cubit.dart';
+import '../../../shared/widgets/error_dialog.dart';
+import '../../../shared/widgets/loading_dialog.dart';
+import '../cubit/hub_cubit.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({

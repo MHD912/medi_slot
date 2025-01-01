@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medi_slot/features/hub/cubit/hub_cubit.dart';
-import 'package:medi_slot/features/hub/page/favorites.dart';
-import 'package:medi_slot/features/hub/page/home.dart';
-import 'package:medi_slot/features/hub/page/notifications.dart';
-import 'package:medi_slot/features/hub/page/schedule.dart';
-import 'package:medi_slot/features/hub/widgets/hub_bottom_nav_bar.dart';
 
+import '../cubit/hub_cubit.dart';
 import '../widgets/app_drawer.dart';
+import '../widgets/hub_bottom_nav_bar.dart';
+import 'favorites.dart';
+import 'home.dart';
+import 'notifications.dart';
+import 'schedule.dart';
 
 class HubPage extends StatelessWidget {
   HubPage({super.key});

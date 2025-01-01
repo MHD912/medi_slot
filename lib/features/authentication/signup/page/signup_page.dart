@@ -4,16 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:medi_slot/core/constants/app_assets.dart';
-import 'package:medi_slot/core/constants/app_routes.dart';
-import 'package:medi_slot/features/authentication/signup/cubit/signup_cubit.dart';
-import 'package:medi_slot/shared/widgets/error_dialog.dart';
-import 'package:medi_slot/shared/widgets/loading_dialog.dart';
 
+import '../../../../core/constants/app_assets.dart';
+import '../../../../core/constants/app_routes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_styles.dart';
 import '../../../../shared/widgets/custom_material_button.dart';
+import '../../../../shared/widgets/error_dialog.dart';
 import '../../../../shared/widgets/labeled_text_form_field.dart';
+import '../../../../shared/widgets/loading_dialog.dart';
+import '../cubit/signup_cubit.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});

@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medi_slot/core/constants/app_preferences.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/constants/app_preferences.dart';
 import '../../../../core/utilities/global_variables.dart';
 
 part 'login_state.dart';

@@ -2,10 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:medi_slot/core/constants/app_routes.dart';
-import 'package:medi_slot/core/constants/app_strings.dart';
-import 'package:medi_slot/core/theme/app_styles.dart';
-import 'package:medi_slot/shared/widgets/custom_material_button.dart';
+
+import '../../../../core/constants/app_routes.dart';
+import '../../../../core/constants/app_strings.dart';
+import '../../../../core/theme/app_styles.dart';
+import '../../../../shared/widgets/custom_material_button.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
