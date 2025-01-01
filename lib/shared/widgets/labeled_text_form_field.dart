@@ -13,6 +13,8 @@ class LabeledTextFormField extends StatelessWidget {
   final void Function()? suffixOnPressed;
   final TextInputType? keyboardType;
   final bool isProfilePage;
+  final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
   const LabeledTextFormField({
     super.key,
     required this.label,
@@ -21,6 +23,8 @@ class LabeledTextFormField extends StatelessWidget {
     this.suffixOnPressed,
     this.keyboardType,
     this.isProfilePage = false,
+    this.validator,
+    this.onChanged,
   });
 
   @override
@@ -39,7 +43,6 @@ class LabeledTextFormField extends StatelessWidget {
           ).tr(),
         ),
         SizedBox(
-          height: 48.h,
           child: TextFormField(
             controller: controller,
             obscureText: obscureText ?? false,
@@ -47,12 +50,14 @@ class LabeledTextFormField extends StatelessWidget {
             style: AppStyles.f16w400.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
             ),
+            validator: validator,
+            onChanged: onChanged,
             decoration: InputDecoration(
               contentPadding: EdgeInsetsDirectional.only(start: 15.sp),
               suffixIcon: (obscureText == null)
                   ? null
                   : Padding(
-                      padding: EdgeInsets.all(5.sp),
+                      padding: EdgeInsetsDirectional.only(end: 5.sp),
                       child: IconButton(
                         onPressed: suffixOnPressed,
                         padding: EdgeInsets.zero,

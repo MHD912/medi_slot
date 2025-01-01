@@ -22,6 +22,24 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginTogglePassword());
   }
 
+  String? emailValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email cannot be empty';
+    }
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    if (!emailRegex.hasMatch(value)) {
+      return 'Enter a valid email address';
+    }
+    return null;
+  }
+
+  String? passwordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password cannot be empty';
+    }
+    return null;
+  }
+
   Future<bool> loginApiCall() async {
     var data = jsonEncode({
       "email": emailController.text.trim(),

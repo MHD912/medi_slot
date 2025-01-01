@@ -60,7 +60,7 @@ class AppRouter {
             pageBuilder: TransitionFactory.slidingPageBuilder(
               child: BlocProvider<SignupCubit>(
                 create: (context) => SignupCubit(),
-                child: const SignupPage(),
+                child: SignupPage(),
               ),
             ),
           ),
@@ -70,7 +70,7 @@ class AppRouter {
             pageBuilder: TransitionFactory.slidingPageBuilder(
               child: BlocProvider<LoginCubit>(
                 create: (context) => LoginCubit(),
-                child: const LoginPage(),
+                child: LoginPage(),
               ),
             ),
             routes: <RouteBase>[

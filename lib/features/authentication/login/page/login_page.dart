@@ -16,7 +16,9 @@ import '../../../../shared/widgets/labeled_text_form_field.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,10 @@ class LoginPage extends StatelessWidget {
                 SizedBox(
                   height: 80.h,
                 ),
-                _inputForm(cubit),
+                Form(
+                  key: _formKey,
+                  child: _inputForm(cubit),
+                ),
                 SizedBox(
                   height: 5.h,
                 ),
@@ -91,6 +96,8 @@ class LoginPage extends StatelessWidget {
       label: AppStrings.email,
       controller: cubit.emailController,
       keyboardType: TextInputType.emailAddress,
+      validator: cubit.emailValidator,
+      onChanged: (value) => _formKey.currentState?.validate(),
     );
   }
 
@@ -103,6 +110,8 @@ class LoginPage extends StatelessWidget {
           controller: cubit.passwordController,
           obscureText: !cubit.isPasswordVisible,
           suffixOnPressed: () => cubit.togglePasswordVisibility(),
+          validator: cubit.passwordValidator,
+          onChanged: (value) => _formKey.currentState?.validate(),
         );
       },
     );
@@ -154,7 +163,9 @@ class LoginPage extends StatelessWidget {
       child: CustomMaterialButton(
         label: AppStrings.login,
         onPressed: () async {
-          await BlocProvider.of<LoginCubit>(context).loginApiCall();
+          if (_formKey.currentState?.validate() ?? false) {
+            await BlocProvider.of<LoginCubit>(context).loginApiCall();
+          }
         },
       ),
     );

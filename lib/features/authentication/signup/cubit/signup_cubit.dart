@@ -28,6 +28,41 @@ class SignupCubit extends Cubit<SignupState> {
     emit(SignupToggleConfirmPassword());
   }
 
+  String? validateName(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Name cannot be empty';
+    }
+    return null;
+  }
+
+  String? validateEmail(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Email cannot be empty';
+    }
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    if (!emailRegex.hasMatch(value)) {
+      return 'Enter a valid email address';
+    }
+    return null;
+  }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Password cannot be empty';
+    }
+    return null;
+  }
+
+  String? validateConfirmPassword(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Confirm Password cannot be empty';
+    }
+    if (value != passwordController.text.trim()) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
+
   Future<bool> signupApiCall() async {
     var data = jsonEncode({
       "name": nameController.text.trim(),

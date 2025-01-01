@@ -16,7 +16,8 @@ import '../../../../shared/widgets/custom_material_button.dart';
 import '../../../../shared/widgets/labeled_text_form_field.dart';
 
 class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+  SignupPage({super.key});
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,161 +27,176 @@ class SignupPage extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 40.h,
-                ),
-                Center(
-                  child: Text(
-                    AppStrings.signup,
-                    style: AppStyles.f40w700.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                  ).tr(),
-                ),
-                SizedBox(
-                  height: 32.h,
-                ),
-                Column(
-                  spacing: 20.h,
-                  children: [
-                    LabeledTextFormField(
-                      label: AppStrings.name,
-                      controller: cubit.nameController,
-                    ),
-                    LabeledTextFormField(
-                      label: AppStrings.email,
-                      controller: cubit.emailController,
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    BlocBuilder<SignupCubit, SignupState>(
-                      buildWhen: (_, currentState) =>
-                          currentState is SignupTogglePassword,
-                      builder: (context, state) {
-                        return LabeledTextFormField(
-                          label: AppStrings.password,
-                          controller: cubit.passwordController,
-                          obscureText: !cubit.isPasswordVisible,
-                          suffixOnPressed: () =>
-                              cubit.togglePasswordVisibility(),
-                        );
-                      },
-                    ),
-                    BlocBuilder<SignupCubit, SignupState>(
-                      buildWhen: (_, currentState) =>
-                          currentState is SignupToggleConfirmPassword,
-                      builder: (context, state) {
-                        return LabeledTextFormField(
-                          label: AppStrings.confirmPassword,
-                          controller: cubit.confirmPasswordController,
-                          obscureText: !cubit.isConfirmPasswordVisible,
-                          suffixOnPressed: () =>
-                              cubit.toggleConfirmPasswordVisibility(),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 36.h,
-                ),
-                BlocListener<SignupCubit, SignupState>(
-                  listenWhen: (_, currentState) =>
-                      currentState is SignupLoading ||
-                      currentState is SignupSuccess ||
-                      currentState is SignupError,
-                  listener: (context, state) {
-                    if (state is SignupLoading) {
-                      LoadingDialog.show(context);
-                      return;
-                    }
-                    context.pop();
-                    if (state is SignupSuccess) {
-                      context.goNamed(AppRoutes.login);
-                    } else {
-                      ErrorDialog.show(context);
-                    }
-                  },
-                  child: CustomMaterialButton(
-                    label: AppStrings.signup,
-                    onPressed: () async {
-                      await cubit.signupApiCall();
-                    },
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 40.h,
                   ),
-                ),
-                SizedBox(
-                  height: 38.h,
-                ),
-                Text(
-                  AppStrings.or,
-                  style: AppStyles.f16w700.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                ).tr(),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Row(
-                  spacing: 5.w,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      padding: EdgeInsets.zero,
-                      icon: SvgPicture.asset(
-                        AppAssets.scalable.facebook,
-                        height: 28.sp,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      padding: EdgeInsets.zero,
-                      icon: SvgPicture.asset(
-                        AppAssets.scalable.googleChrome,
-                        height: 28.sp,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      padding: EdgeInsets.zero,
-                      icon: SvgPicture.asset(
-                        AppAssets.scalable.twitter,
-                        height: 28.sp,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  spacing: 2.w,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppStrings.haveAccount,
-                      style: AppStyles.f12w400.copyWith(
+                  Center(
+                    child: Text(
+                      AppStrings.signup,
+                      style: AppStyles.f40w700.copyWith(
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ).tr(),
-                    TextButton(
-                      onPressed: () => context.pushReplacementNamed(
-                        AppRoutes.login,
+                  ),
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                  Column(
+                    spacing: 20.h,
+                    children: [
+                      LabeledTextFormField(
+                        label: AppStrings.name,
+                        controller: cubit.nameController,
+                        validator: cubit.validateName,
+                        onChanged: (value) => _formKey.currentState?.validate(),
                       ),
-                      style: ButtonStyle(
-                        visualDensity: VisualDensity.compact,
-                        padding: WidgetStatePropertyAll(
-                          EdgeInsets.zero,
+                      LabeledTextFormField(
+                        label: AppStrings.email,
+                        controller: cubit.emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: cubit.validateEmail,
+                        onChanged: (value) => _formKey.currentState?.validate(),
+                      ),
+                      BlocBuilder<SignupCubit, SignupState>(
+                        buildWhen: (_, currentState) =>
+                            currentState is SignupTogglePassword,
+                        builder: (context, state) {
+                          return LabeledTextFormField(
+                            label: AppStrings.password,
+                            controller: cubit.passwordController,
+                            obscureText: !cubit.isPasswordVisible,
+                            suffixOnPressed: () =>
+                                cubit.togglePasswordVisibility(),
+                            validator: cubit.validatePassword,
+                            onChanged: (value) =>
+                                _formKey.currentState?.validate(),
+                          );
+                        },
+                      ),
+                      BlocBuilder<SignupCubit, SignupState>(
+                        buildWhen: (_, currentState) =>
+                            currentState is SignupToggleConfirmPassword,
+                        builder: (context, state) {
+                          return LabeledTextFormField(
+                            label: AppStrings.confirmPassword,
+                            controller: cubit.confirmPasswordController,
+                            obscureText: !cubit.isConfirmPasswordVisible,
+                            suffixOnPressed: () =>
+                                cubit.toggleConfirmPasswordVisibility(),
+                            validator: cubit.validateConfirmPassword,
+                            onChanged: (value) =>
+                                _formKey.currentState?.validate(),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 36.h,
+                  ),
+                  BlocListener<SignupCubit, SignupState>(
+                    listenWhen: (_, currentState) =>
+                        currentState is SignupLoading ||
+                        currentState is SignupSuccess ||
+                        currentState is SignupError,
+                    listener: (context, state) {
+                      if (state is SignupLoading) {
+                        LoadingDialog.show(context);
+                        return;
+                      }
+                      context.pop();
+                      if (state is SignupSuccess) {
+                        context.goNamed(AppRoutes.login);
+                      } else {
+                        ErrorDialog.show(context);
+                      }
+                    },
+                    child: CustomMaterialButton(
+                      label: AppStrings.signup,
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          await cubit.signupApiCall();
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 38.h,
+                  ),
+                  Text(
+                    AppStrings.or,
+                    style: AppStyles.f16w700.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ).tr(),
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  Row(
+                    spacing: 5.w,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        padding: EdgeInsets.zero,
+                        icon: SvgPicture.asset(
+                          AppAssets.scalable.facebook,
+                          height: 28.sp,
                         ),
                       ),
-                      child: Text(
-                        AppStrings.login,
+                      IconButton(
+                        onPressed: () {},
+                        padding: EdgeInsets.zero,
+                        icon: SvgPicture.asset(
+                          AppAssets.scalable.googleChrome,
+                          height: 28.sp,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        padding: EdgeInsets.zero,
+                        icon: SvgPicture.asset(
+                          AppAssets.scalable.twitter,
+                          height: 28.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    spacing: 2.w,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        AppStrings.haveAccount,
                         style: AppStyles.f12w400.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ).tr(),
-                    ),
-                  ],
-                ),
-              ],
+                      TextButton(
+                        onPressed: () => context.pushReplacementNamed(
+                          AppRoutes.login,
+                        ),
+                        style: ButtonStyle(
+                          visualDensity: VisualDensity.compact,
+                          padding: WidgetStatePropertyAll(
+                            EdgeInsets.zero,
+                          ),
+                        ),
+                        child: Text(
+                          AppStrings.login,
+                          style: AppStyles.f12w400.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ).tr(),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
