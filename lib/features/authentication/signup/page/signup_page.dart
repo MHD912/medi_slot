@@ -7,9 +7,11 @@ import 'package:go_router/go_router.dart';
 import 'package:medi_slot/core/constants/app_assets.dart';
 import 'package:medi_slot/core/constants/app_routes.dart';
 import 'package:medi_slot/features/authentication/signup/cubit/signup_cubit.dart';
+import 'package:medi_slot/shared/widgets/error_dialog.dart';
+import 'package:medi_slot/shared/widgets/loading_dialog.dart';
 
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/app_styles.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../shared/widgets/custom_material_button.dart';
 import '../../../../shared/widgets/labeled_text_form_field.dart';
 
@@ -32,7 +34,9 @@ class SignupPage extends StatelessWidget {
                 Center(
                   child: Text(
                     AppStrings.signup,
-                    style: AppStyles.f40w700OnSurface(context),
+                    style: AppStyles.f40w700.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ).tr(),
                 ),
                 SizedBox(
@@ -81,9 +85,29 @@ class SignupPage extends StatelessWidget {
                 SizedBox(
                   height: 36.h,
                 ),
-                CustomMaterialButton(
-                  label: AppStrings.signup,
-                  onPressed: () {},
+                BlocListener<SignupCubit, SignupState>(
+                  listenWhen: (_, currentState) =>
+                      currentState is SignupLoading ||
+                      currentState is SignupSuccess ||
+                      currentState is SignupError,
+                  listener: (context, state) {
+                    if (state is SignupLoading) {
+                      LoadingDialog.show(context);
+                      return;
+                    }
+                    context.pop();
+                    if (state is SignupSuccess) {
+                      context.goNamed(AppRoutes.login);
+                    } else {
+                      ErrorDialog.show(context);
+                    }
+                  },
+                  child: CustomMaterialButton(
+                    label: AppStrings.signup,
+                    onPressed: () async {
+                      await cubit.signupApiCall();
+                    },
+                  ),
                 ),
                 SizedBox(
                   height: 38.h,
@@ -128,6 +152,7 @@ class SignupPage extends StatelessWidget {
                   ],
                 ),
                 Row(
+                  spacing: 2.w,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
@@ -138,7 +163,7 @@ class SignupPage extends StatelessWidget {
                     ).tr(),
                     TextButton(
                       onPressed: () => context.pushReplacementNamed(
-                        AppRoutes.login.name,
+                        AppRoutes.login,
                       ),
                       style: ButtonStyle(
                         visualDensity: VisualDensity.compact,

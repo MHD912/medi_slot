@@ -10,6 +10,6 @@ final class ThemeInitial extends ThemeState {
   const ThemeInitial({required super.themeMode});
 }
 
-final class ChangeTheme extends ThemeState {
-  const ChangeTheme({required super.themeMode});
+final class ThemeChanged extends ThemeState {
+  const ThemeChanged({required super.themeMode});
 }

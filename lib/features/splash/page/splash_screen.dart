@@ -15,10 +15,10 @@ class SplashScreen extends StatelessWidget {
     return BlocProvider<SplashCubit>(
       create: (context) => SplashCubit(),
       child: BlocListener<SplashCubit, SplashState>(
+        listenWhen: (_, currentState) => currentState is SplashEnd,
         listener: (context, state) {
-          context.pushReplacementNamed(
-            (state as SplashEnd).routeName,
-          );
+          state as SplashEnd;
+          context.goNamed(state.routeName);
         },
         child: Scaffold(
           resizeToAvoidBottomInset: false,

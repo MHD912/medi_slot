@@ -7,7 +7,7 @@ import 'package:medi_slot/features/authentication/change_password/cubit/change_p
 
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/app_styles.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../shared/widgets/custom_material_button.dart';
 import '../../../../shared/widgets/labeled_text_form_field.dart';
 
@@ -30,7 +30,9 @@ class ChangePasswordPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       AppStrings.enterNewPassword,
-                      style: AppStyles.f32w700OnSurface(context),
+                      style: AppStyles.f32w700.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ).tr(),
                   ),
                 ),
@@ -99,7 +101,7 @@ class ChangePasswordPage extends StatelessWidget {
     return CustomMaterialButton(
       label: AppStrings.continueText,
       onPressed: () => context.goNamed(
-        AppRoutes.login.name,
+        AppRoutes.login,
       ),
     );
   }

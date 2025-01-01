@@ -41,6 +41,7 @@
     "dr_amani_albij": "د. أماني البيج",
     "settings": "الإعدادات",
     "dark_mode": "الوضع الداكن",
+    "light_mode": "الوضع الفاتح",
     "about_us": "معلومات عنا",
     "logout": "تسجيل الخروج",
     "edit_name": "تعديل الاسم",
@@ -48,6 +49,15 @@
     "male": "ذكر",
     "female": "أنثى",
     "edit_email": "تعديل البريد الإلكتروني",
+    "phone_number": "رقم الهاتف",
     "language": "اللغة",
-    "save": "حفظ"
+    "arabic": "العربية",
+    "english": "الإنكليزية",
+    "save": "حفظ",
+    "home": "الرئيسية",
+    "schedule": "مواعيد",
+    "favorites": "مفضلة",
+    "notifications": "إشعارات",
+    "coming_soon": "قريبا!",
+    "error_occurred": "حدث خطأ"
 }

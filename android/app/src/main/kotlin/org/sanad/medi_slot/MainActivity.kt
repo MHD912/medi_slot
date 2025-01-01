@@ -1,4 +1,4 @@
-package com.example.medi_slot
+package org.sanad.medi_slot
 
 import io.flutter.embedding.android.FlutterActivity
 

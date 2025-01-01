@@ -29,23 +29,23 @@ class SplashCubit extends Cubit<SplashState> {
     if (isFirstLaunch != false) {
       emit(
         SplashEnd(
-          routeName: AppRoutes.onboarding.name,
+          routeName: AppRoutes.onboarding,
         ),
       );
       return;
     }
 
-    final isLoggedIn = preferences.getBool(AppPreferences.isLoggedIn);
-    if (isLoggedIn == true) {
+    final token = preferences.getString(AppPreferences.token);
+    if (token == null) {
       emit(
         SplashEnd(
-          routeName: AppRoutes.home.name,
+          routeName: AppRoutes.welcome,
         ),
       );
     } else {
       emit(
         SplashEnd(
-          routeName: AppRoutes.welcome.name,
+          routeName: AppRoutes.home,
         ),
       );
     }

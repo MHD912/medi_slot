@@ -17,7 +17,7 @@ class OnboardingCarousel extends StatelessWidget {
     final cubit = BlocProvider.of<OnboardingCubit>(context);
 
     final carouselProgressIcons = List<Widget>.generate(
-      cubit.lastSlideIndex + 1,
+      onboardingSlides.length,
       (index) => BlocBuilder<OnboardingCubit, OnboardingState>(
         buildWhen: (_, currentState) => currentState is OnboardingNext,
         builder: (context, state) {
@@ -38,7 +38,10 @@ class OnboardingCarousel extends StatelessWidget {
           flex: 12,
           child: BlocBuilder<OnboardingCubit, OnboardingState>(
             buildWhen: (_, currentState) => currentState is OnboardingNext,
-            builder: (context, state) => onboardingSlides[cubit.index],
+            builder: (context, state) => AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: onboardingSlides[cubit.index],
+            ),
           ),
         ),
         Spacer(),

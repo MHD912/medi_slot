@@ -28,7 +28,7 @@ class _RasterAssets {
   final person1 = "assets/images/pfp_1.jpg";
   final person2 = "assets/images/pfp_2.jpg";
   final person3 = "assets/images/pfp_3.jpg";
-  final profilePicture = "assets/images/pfp_placeholder.jpg";
+  final profilePicture = "assets/images/pfp_placeholder.png";
 }
 
 class _GifAssets {

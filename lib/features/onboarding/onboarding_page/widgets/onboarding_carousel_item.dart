@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../core/constants/app_styles.dart';
+import '../../../../core/theme/app_styles.dart';
 
 class OnBoardingCarouselItem extends StatelessWidget {
   final String svgImage, title, description;
@@ -32,14 +32,18 @@ class OnBoardingCarouselItem extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: AppStyles.f32w700OnSurface(context),
+              style: AppStyles.f32w700.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ).tr(),
             SizedBox(
               width: 273.w,
               child: Text(
                 description,
                 textAlign: TextAlign.center,
-                style: AppStyles.f16w400OnSurface(context),
+                style: AppStyles.f16w400.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
               ).tr(),
             ),
           ],

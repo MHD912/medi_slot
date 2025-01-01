@@ -41,6 +41,7 @@ class AppStrings {
   static const drAmaniAlbij = "dr_amani_albij";
   static const settings = "settings";
   static const darkMode = "dark_mode";
+  static const lightMode = "light_mode";
   static const aboutUs = "about_us";
   static const logout = "logout";
   static const editName = "edit_name";
@@ -48,6 +49,15 @@ class AppStrings {
   static const male = "male";
   static const female = "female";
   static const editEmail = "edit_email";
+  static const phoneNumber = "phone_number";
   static const language = "language";
+  static const arabic = "arabic";
+  static const english = "english";
   static const save = "save";
+  static const home = "home";
+  static const schedule = "schedule";
+  static const favorites = "favorites";
+  static const notifications = "notifications";
+  static const comingSoon = "coming_soon";
+  static const errorOccurred = "error_occurred";
 }

@@ -24,7 +24,16 @@ class ThemeCubit extends Cubit<ThemeState> {
     _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
     await _preferences.setBool(AppPreferences.isDarkMode, isDark);
     emit(
-      ChangeTheme(themeMode: _themeMode),
+      ThemeChanged(themeMode: _themeMode),
+    );
+  }
+
+  Future<void> toggleThemeMode() async {
+    final isDarkMode = _themeMode == ThemeMode.dark;
+    _themeMode = (isDarkMode) ? ThemeMode.light : ThemeMode.dark;
+    await _preferences.setBool(AppPreferences.isDarkMode, !isDarkMode);
+    emit(
+      ThemeChanged(themeMode: _themeMode),
     );
   }
 
@@ -32,13 +41,13 @@ class ThemeCubit extends Cubit<ThemeState> {
     ThemeMode themeMode;
     final preferences = getIt.get<SharedPreferences>();
     var isDarkMode = preferences.getBool(AppPreferences.isDarkMode);
-    if (isDarkMode == null || !isDarkMode) {
-      themeMode = ThemeMode.light;
-      await preferences.setBool(AppPreferences.isDarkMode, false);
-    } else {
-      themeMode = ThemeMode.dark;
-      await preferences.setBool(AppPreferences.isDarkMode, true);
+    if (isDarkMode == null) {
+      final brightness =
+          WidgetsBinding.instance.platformDispatcher.platformBrightness;
+      isDarkMode = (brightness == Brightness.dark);
+      await preferences.setBool(AppPreferences.isDarkMode, isDarkMode);
     }
+    themeMode = (isDarkMode) ? ThemeMode.dark : ThemeMode.light;
     return ThemeCubit(preferences, themeMode);
   }
 }

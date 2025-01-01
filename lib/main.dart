@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:medi_slot/core/constants/app_locals.dart';
+import 'package:medi_slot/shared/localization/cubit/localization_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'main_app.dart';
@@ -12,9 +14,12 @@ void main() async {
   await initSingletons();
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en'), Locale('ar')],
+      supportedLocales: [
+        AppLocals.englishLocal,
+        AppLocals.arabicLocal,
+      ],
       path: 'assets/translations',
-      fallbackLocale: Locale('en'),
+      fallbackLocale: AppLocals.englishLocal,
       child: const MainApp(),
     ),
   );
@@ -26,5 +31,8 @@ Future<void> initSingletons() async {
   );
   getIt.registerSingleton<ThemeCubit>(
     await ThemeCubit.init(),
+  );
+  getIt.registerSingleton<LocalizationCubit>(
+    await LocalizationCubit.init(),
   );
 }

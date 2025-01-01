@@ -7,7 +7,7 @@ import 'package:medi_slot/features/authentication/verification/cubit/verificatio
 
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/app_styles.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../shared/widgets/custom_material_button.dart';
 import '../widgets/custom_pin_code_text_field.dart';
 
@@ -30,7 +30,9 @@ class VerificationPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       AppStrings.verification,
-                      style: AppStyles.f32w700OnSurface(context),
+                      style: AppStyles.f32w700.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ).tr(),
                   ),
                 ),
@@ -65,7 +67,9 @@ class VerificationPage extends StatelessWidget {
         Text(
           AppStrings.enterVerificationCode,
           textAlign: TextAlign.center,
-          style: AppStyles.f16w400OnSurface(context),
+          style: AppStyles.f16w400.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ).tr(),
         SizedBox(height: 5.h),
         CustomPinCodeTextField(),
@@ -106,7 +110,7 @@ class VerificationPage extends StatelessWidget {
     return CustomMaterialButton(
       label: AppStrings.enterCode,
       onPressed: () => context.pushNamed(
-        AppRoutes.changePassword.name,
+        AppRoutes.changePassword,
       ),
     );
   }

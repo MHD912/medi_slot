@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../core/constants/app_assets.dart';
-import '../../core/constants/app_styles.dart';
+import '../../core/theme/app_styles.dart';
 
 class LabeledTextFormField extends StatelessWidget {
   final String label;
@@ -12,6 +12,7 @@ class LabeledTextFormField extends StatelessWidget {
   final bool? obscureText;
   final void Function()? suffixOnPressed;
   final TextInputType? keyboardType;
+  final bool isProfilePage;
   const LabeledTextFormField({
     super.key,
     required this.label,
@@ -19,30 +20,35 @@ class LabeledTextFormField extends StatelessWidget {
     this.obscureText,
     this.suffixOnPressed,
     this.keyboardType,
+    this.isProfilePage = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 5.h,
+      spacing: (isProfilePage) ? 0 : 5.h,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsetsDirectional.only(start: 10.w),
           child: Text(
             label,
-            style: AppStyles.f16w400OnSurface(context),
+            style: AppStyles.f16w400.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ).tr(),
         ),
         SizedBox(
           height: 48.h,
           child: TextFormField(
             controller: controller,
-            // onTapOutside: (event) => FocusScope.of(context).unfocus(),
             obscureText: obscureText ?? false,
             keyboardType: keyboardType,
-            style: AppStyles.f16w400OnSurface(context),
+            style: AppStyles.f16w400.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             decoration: InputDecoration(
+              contentPadding: EdgeInsetsDirectional.only(start: 15.sp),
               suffixIcon: (obscureText == null)
                   ? null
                   : Padding(
@@ -55,8 +61,10 @@ class LabeledTextFormField extends StatelessWidget {
                               ? AppAssets.scalable.visibilityOff
                               : AppAssets.scalable.visibilityOn,
                           height: (obscureText!) ? 18.sp : 30.sp,
-
-                          // height: 18.sp,
+                          colorFilter: ColorFilter.mode(
+                            Theme.of(context).colorScheme.onSurface,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ),

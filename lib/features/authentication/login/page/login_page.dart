@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:medi_slot/shared/widgets/error_dialog.dart';
+import 'package:medi_slot/shared/widgets/loading_dialog.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/app_styles.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../shared/widgets/custom_material_button.dart';
 import '../../../../shared/widgets/labeled_text_form_field.dart';
 import '../cubit/login_cubit.dart';
@@ -32,7 +34,9 @@ class LoginPage extends StatelessWidget {
                 Center(
                   child: Text(
                     AppStrings.login,
-                    style: AppStyles.f40w700OnSurface(context),
+                    style: AppStyles.f40w700.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ).tr(),
                 ),
                 SizedBox(
@@ -110,7 +114,7 @@ class LoginPage extends StatelessWidget {
       children: [
         TextButton(
           onPressed: () => context.pushNamed(
-            AppRoutes.forgotPassword.name,
+            AppRoutes.forgotPassword,
           ),
           style: ButtonStyle(
             visualDensity: VisualDensity.compact,
@@ -130,10 +134,28 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _loginButtonWidget(BuildContext context) {
-    return CustomMaterialButton(
-      label: AppStrings.login,
-      onPressed: () => context.pushNamed(
-        AppRoutes.home.name,
+    return BlocListener<LoginCubit, LoginState>(
+      listenWhen: (_, currentState) =>
+          currentState is LoginLoading ||
+          currentState is LoginSuccess ||
+          currentState is LoginError,
+      listener: (context, state) {
+        if (state is LoginLoading) {
+          LoadingDialog.show(context);
+          return;
+        }
+        context.pop();
+        if (state is LoginSuccess) {
+          context.goNamed(AppRoutes.home);
+        } else {
+          ErrorDialog.show(context);
+        }
+      },
+      child: CustomMaterialButton(
+        label: AppStrings.login,
+        onPressed: () async {
+          await BlocProvider.of<LoginCubit>(context).loginApiCall();
+        },
       ),
     );
   }
@@ -173,6 +195,7 @@ class LoginPage extends StatelessWidget {
 
   Widget _goToSignupWidget(BuildContext context) {
     return Row(
+      spacing: 2.w,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
@@ -183,7 +206,7 @@ class LoginPage extends StatelessWidget {
         ).tr(),
         TextButton(
           onPressed: () => context.pushReplacementNamed(
-            AppRoutes.signup.name,
+            AppRoutes.signup,
           ),
           style: ButtonStyle(
             visualDensity: VisualDensity.compact,

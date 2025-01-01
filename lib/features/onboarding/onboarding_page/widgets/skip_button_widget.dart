@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/app_styles.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../cubit/onboarding_cubit.dart';
 
 class SkipButtonWidget extends StatelessWidget {
@@ -34,7 +34,9 @@ class SkipButtonWidget extends StatelessWidget {
               ),
               child: Text(
                 AppStrings.skip,
-                style: AppStyles.f16w400OnSurface(context),
+                style: AppStyles.f16w400.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
               ).tr(),
             ),
           );

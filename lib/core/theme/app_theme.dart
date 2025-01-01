@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:medi_slot/core/utilities/global_variables.dart';
+import 'package:medi_slot/shared/localization/cubit/localization_cubit.dart';
 
 import 'app_colors.dart';
 
 class AppTheme {
   static const String nunitoFont = "Nunito";
+  static const String notoSansArabicFont = "NotoSansArabic";
 
-  static final ThemeData _theme = ThemeData(
-    fontFamily: nunitoFont,
-    fontFamilyFallback: const <String>["OpenSans"],
-    useMaterial3: true,
-  );
+  static ThemeData _theme(Locale locale) {
+    final locale = getIt.get<LocalizationCubit>().activeLocale;
+    return ThemeData(
+      fontFamily:
+          (locale.languageCode == 'en') ? nunitoFont : notoSansArabicFont,
+      useMaterial3: true,
+    );
+  }
 
-  static final ThemeData lightTheme = _theme.copyWith(
-    brightness: Brightness.light,
-    scaffoldBackgroundColor: AppColors.lightGreyColor,
-    colorScheme: lightColorScheme,
-    textTheme: TextTheme(),
-  );
+  static ThemeData lightTheme(Locale locale) => _theme(locale).copyWith(
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: AppColors.lightGreyColor,
+        colorScheme: lightColorScheme,
+      );
 
   static final ColorScheme lightColorScheme = ColorScheme.fromSeed(
     seedColor: AppColors.lightGreyColor,
@@ -33,12 +38,11 @@ class AppTheme {
     outline: AppColors.greyColor,
   );
 
-  static final ThemeData darkTheme = _theme.copyWith(
-    brightness: Brightness.dark,
-    scaffoldBackgroundColor: AppColors.blackColor,
-    colorScheme: darkColorScheme,
-    textTheme: TextTheme(),
-  );
+  static ThemeData darkTheme(Locale locale) => _theme(locale).copyWith(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: AppColors.blackColor,
+        colorScheme: darkColorScheme,
+      );
 
   static final ColorScheme darkColorScheme = ColorScheme.fromSeed(
     seedColor: AppColors.blackColor,
@@ -48,10 +52,10 @@ class AppTheme {
     onSurface: AppColors.lightGreyColor,
     primary: AppColors.keppelColor,
     onPrimary: AppColors.lightGreyColor,
-    primaryContainer: AppColors.blackColor,
+    primaryContainer: AppColors.darkGreyColor,
     onPrimaryContainer: AppColors.snowColor,
-    secondaryContainer: AppColors.blackColor,
-    onSecondaryContainer: AppColors.lightGreyColor,
+    secondaryContainer: AppColors.darkGreyColor,
+    onSecondaryContainer: AppColors.snowColor,
     outline: AppColors.greyColor,
   );
 }

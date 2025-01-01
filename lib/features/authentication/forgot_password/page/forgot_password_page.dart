@@ -8,7 +8,7 @@ import 'package:medi_slot/core/constants/app_routes.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/app_styles.dart';
+import '../../../../core/theme/app_styles.dart';
 import '../../../../shared/widgets/custom_material_button.dart';
 import '../../../../shared/widgets/labeled_text_form_field.dart';
 import '../cubit/forgot_password_cubit.dart';
@@ -32,7 +32,9 @@ class ForgotPasswordPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       AppStrings.forgotPassword,
-                      style: AppStyles.f32w700OnSurface(context),
+                      style: AppStyles.f32w700.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ).tr(),
                   ),
                 ),
@@ -86,7 +88,7 @@ class ForgotPasswordPage extends StatelessWidget {
     return CustomMaterialButton(
       label: AppStrings.sendCode,
       onPressed: () => context.pushNamed(
-        AppRoutes.verification.name,
+        AppRoutes.verification,
       ),
     );
   }
