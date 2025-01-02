@@ -107,17 +107,20 @@ class Home extends StatelessWidget {
                 ).tr(),
               ],
             ),
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.greyColor,
+            GestureDetector(
+              onTap: () => Scaffold.of(context).openEndDrawer(),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColors.greyColor,
+                  ),
                 ),
-              ),
-              child: CircleAvatar(
-                radius: 28.sp,
-                foregroundImage: AssetImage(
-                  AppAssets.raster.profilePicture,
+                child: CircleAvatar(
+                  radius: 28.sp,
+                  foregroundImage: AssetImage(
+                    AppAssets.raster.profilePicture,
+                  ),
                 ),
               ),
             )

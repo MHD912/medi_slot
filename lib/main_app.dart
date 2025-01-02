@@ -19,10 +19,8 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  void rebuildOnLocaleChange() => setState(() {});
   @override
   Widget build(BuildContext context) {
-    PlatformDispatcher.instance.onLocaleChanged = rebuildOnLocaleChange;
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
@@ -34,16 +32,21 @@ class _MainAppState extends State<MainApp> {
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
-        child: BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (context, themeState) => MaterialApp.router(
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            theme: AppTheme.lightTheme(context.locale),
-            darkTheme: AppTheme.darkTheme(context.locale),
-            themeMode: themeState.themeMode,
-            routerConfig: AppRouter.goRouter,
-          ),
+        child: BlocBuilder<LocalizationCubit, LocalizationState>(
+          buildWhen: (_, current) => current is LocaleChanged,
+          builder: (context, localeState) {
+            return BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, themeState) => MaterialApp.router(
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                locale: localeState.locale,
+                theme: AppTheme.lightTheme(context.locale),
+                darkTheme: AppTheme.darkTheme(context.locale),
+                themeMode: themeState.themeMode,
+                routerConfig: AppRouter.goRouter,
+              ),
+            );
+          },
         ),
       ),
     );

@@ -48,4 +48,11 @@ class AppStyles {
     fontWeight: FontWeight.w700,
     fontVariations: [FontVariation.weight(700)],
   );
+
+  static TextStyle errorStyle = TextStyle(
+    fontSize: 12.sp,
+    color: Colors.red.shade900,
+    fontWeight: FontWeight.w400,
+    fontVariations: [FontVariation.weight(400)],
+  );
 }

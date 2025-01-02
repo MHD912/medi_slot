@@ -1,18 +1,22 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/constants/app_preferences.dart';
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utilities/global_variables.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
+
+  final emailFormKey = GlobalKey<FormState>();
+  final passwordFormKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -25,20 +29,34 @@ class LoginCubit extends Cubit<LoginState> {
 
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Email cannot be empty';
+      return tr(AppStrings.errorEmpty);
     }
     final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
     if (!emailRegex.hasMatch(value)) {
-      return 'Enter a valid email address';
+      return tr(AppStrings.emailInvalid);
     }
     return null;
   }
 
   String? passwordValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Password cannot be empty';
+      return tr(AppStrings.errorEmpty);
     }
     return null;
+  }
+
+  bool validateInput() {
+    var emailResult = emailFormKey.currentState?.validate() ?? false;
+    var passwordResult = passwordFormKey.currentState?.validate() ?? false;
+    return (emailResult && passwordResult);
+  }
+
+  void clearEmailValidation() {
+    emailFormKey.currentState?.reset();
+  }
+
+  void clearPasswordValidation() {
+    passwordFormKey.currentState?.reset();
   }
 
   Future<bool> loginApiCall() async {

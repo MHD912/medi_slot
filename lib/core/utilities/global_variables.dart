@@ -9,5 +9,12 @@ final dio = Dio(
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     },
+    validateStatus: (status) {
+      if (status != null && status >= 200 && status <= 422) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   ),
 );

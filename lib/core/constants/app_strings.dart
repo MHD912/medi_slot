@@ -60,4 +60,8 @@ class AppStrings {
   static const notifications = "notifications";
   static const comingSoon = "coming_soon";
   static const errorOccurred = "error_occurred";
+  static const somethingWrong = "something_wrong";
+  static const errorEmpty = "error_empty";
+  static const emailInvalid = "email_invalid";
+  static const errorPasswordNotMatch = "error_password_not_match";
 }

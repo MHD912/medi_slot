@@ -59,5 +59,9 @@
     "favorites": "Favorites",
     "notifications": "Notifications",
     "coming_soon": "Coming Soon!",
-    "error_occurred": "Error Occurred"
+    "error_occurred": "Error",
+    "something_wrong": "Something wrong happened during this operation!",
+    "error_empty": "*This field can't be empty",
+    "email_invalid": "*Enter a valid email address",
+    "error_password_not_match": "*Passwords do not match"
 }

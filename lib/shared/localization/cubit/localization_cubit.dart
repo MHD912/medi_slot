@@ -13,16 +13,12 @@ part 'localization_state.dart';
 
 class LocalizationCubit extends Cubit<LocalizationState> {
   final SharedPreferences _preferences;
-  late Locale _activeLocale;
+  Locale _activeLocale;
 
   LocalizationCubit(
     this._preferences,
     this._activeLocale,
-  ) : super(
-          LocalizationInitial(
-            locale: _activeLocale,
-          ),
-        );
+  ) : super(LocalizationInitial(locale: _activeLocale));
 
   Locale get activeLocale => _activeLocale;
 

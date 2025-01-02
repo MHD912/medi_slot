@@ -39,7 +39,7 @@ class OnboardingCarousel extends StatelessWidget {
           child: BlocBuilder<OnboardingCubit, OnboardingState>(
             buildWhen: (_, currentState) => currentState is OnboardingNext,
             builder: (context, state) => AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 400),
               child: onboardingSlides[cubit.index],
             ),
           ),

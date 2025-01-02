@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/constants/app_preferences.dart';
 import '../../../../core/utilities/global_variables.dart';
+import '../models/onboarding_item.dart';
 
 part 'onboarding_state.dart';
 
@@ -13,7 +14,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   final _preferences = getIt.get<SharedPreferences>();
 
   int index = 0;
-  int lastSlideIndex = 1;
+  int lastSlideIndex = onboardingSlides.length - 1;
 
   bool isLastSlide() => index == lastSlideIndex;
 

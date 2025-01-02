@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:restart_app/restart_app.dart';
-
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_locals.dart';
 import '../../../core/constants/app_routes.dart';
@@ -89,14 +87,23 @@ class AppDrawer extends StatelessWidget {
                     ? AppStrings.arabic
                     : AppStrings.english,
                 onPressed: () async {
+                  showDialog(
+                    context: context,
+                    builder: (context) => Container(
+                      color: Theme.of(context).colorScheme.surface,
+                      child: LoadingDialog(),
+                    ),
+                  );
+                  await Future.delayed(const Duration(milliseconds: 500));
+                  if (!context.mounted) return;
                   await context.setLocale(
                     (localeCubit.activeLocale == AppLocals.englishLocal)
                         ? AppLocals.arabicLocal
                         : AppLocals.englishLocal,
                   );
-                  if (!context.mounted) return;
                   await localeCubit.toggleLocale();
-                  Restart.restartApp();
+                  if (!context.mounted) return;
+                  context.goNamed(AppRoutes.splashScreen);
                 },
               ),
               _listItemButton(

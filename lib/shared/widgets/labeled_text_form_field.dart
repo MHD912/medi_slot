@@ -14,7 +14,7 @@ class LabeledTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool isProfilePage;
   final String? Function(String?)? validator;
-  final void Function(String)? onChanged;
+  final void Function()? onTap;
   const LabeledTextFormField({
     super.key,
     required this.label,
@@ -24,7 +24,7 @@ class LabeledTextFormField extends StatelessWidget {
     this.keyboardType,
     this.isProfilePage = false,
     this.validator,
-    this.onChanged,
+    this.onTap,
   });
 
   @override
@@ -51,9 +51,13 @@ class LabeledTextFormField extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
             ),
             validator: validator,
-            onChanged: onChanged,
+            onTap: onTap,
             decoration: InputDecoration(
-              contentPadding: EdgeInsetsDirectional.only(start: 15.sp),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 15.w,
+                vertical: 13.h,
+              ),
+              errorStyle: AppStyles.errorStyle,
               suffixIcon: (obscureText == null)
                   ? null
                   : Padding(

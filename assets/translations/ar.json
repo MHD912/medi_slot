@@ -59,5 +59,9 @@
     "favorites": "مفضلة",
     "notifications": "إشعارات",
     "coming_soon": "قريبا!",
-    "error_occurred": "حدث خطأ"
+    "error_occurred": "خطأ",
+    "something_wrong": "حدثت مشكلة ما أثناء إجراء هذه العملية!",
+    "error_empty": "*لا يمكن ترك هذا الحقل فارغاً",
+    "email_invalid": "*قم بإدخال بريد إلكتروني صحيح",
+    "error_password_not_match": "*كلمة السر غير مطابقة"
 }

@@ -16,9 +16,7 @@ import '../../../../shared/widgets/loading_dialog.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
-
-  final _formKey = GlobalKey<FormState>();
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +42,7 @@ class LoginPage extends StatelessWidget {
                 SizedBox(
                   height: 80.h,
                 ),
-                Form(
-                  key: _formKey,
-                  child: _inputForm(cubit),
-                ),
+                _inputForm(context, cubit),
                 SizedBox(
                   height: 5.h,
                 ),
@@ -55,7 +50,7 @@ class LoginPage extends StatelessWidget {
                 SizedBox(
                   height: 165.h,
                 ),
-                _loginButtonWidget(context),
+                _loginButtonWidget(context, cubit),
                 SizedBox(
                   height: 38.h,
                 ),
@@ -81,23 +76,26 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _inputForm(LoginCubit cubit) {
+  Widget _inputForm(BuildContext context, LoginCubit cubit) {
     return Column(
       spacing: 20.h,
       children: [
-        _emailField(cubit),
+        _emailField(context, cubit),
         _passwordField(cubit),
       ],
     );
   }
 
-  Widget _emailField(LoginCubit cubit) {
-    return LabeledTextFormField(
-      label: AppStrings.email,
-      controller: cubit.emailController,
-      keyboardType: TextInputType.emailAddress,
-      validator: cubit.emailValidator,
-      onChanged: (value) => _formKey.currentState?.validate(),
+  Widget _emailField(BuildContext context, LoginCubit cubit) {
+    return Form(
+      key: cubit.emailFormKey,
+      child: LabeledTextFormField(
+        label: AppStrings.email,
+        controller: cubit.emailController,
+        keyboardType: TextInputType.emailAddress,
+        validator: cubit.emailValidator,
+        onTap: () => cubit.clearEmailValidation(),
+      ),
     );
   }
 
@@ -105,13 +103,16 @@ class LoginPage extends StatelessWidget {
     return BlocBuilder<LoginCubit, LoginState>(
       buildWhen: (_, currentState) => currentState is LoginTogglePassword,
       builder: (context, state) {
-        return LabeledTextFormField(
-          label: AppStrings.password,
-          controller: cubit.passwordController,
-          obscureText: !cubit.isPasswordVisible,
-          suffixOnPressed: () => cubit.togglePasswordVisibility(),
-          validator: cubit.passwordValidator,
-          onChanged: (value) => _formKey.currentState?.validate(),
+        return Form(
+          key: cubit.passwordFormKey,
+          child: LabeledTextFormField(
+            label: AppStrings.password,
+            controller: cubit.passwordController,
+            obscureText: !cubit.isPasswordVisible,
+            suffixOnPressed: () => cubit.togglePasswordVisibility(),
+            validator: cubit.passwordValidator,
+            onTap: () => cubit.clearPasswordValidation(),
+          ),
         );
       },
     );
@@ -142,7 +143,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _loginButtonWidget(BuildContext context) {
+  Widget _loginButtonWidget(BuildContext context, LoginCubit cubit) {
     return BlocListener<LoginCubit, LoginState>(
       listenWhen: (_, currentState) =>
           currentState is LoginLoading ||
@@ -163,7 +164,7 @@ class LoginPage extends StatelessWidget {
       child: CustomMaterialButton(
         label: AppStrings.login,
         onPressed: () async {
-          if (_formKey.currentState?.validate() ?? false) {
+          if (cubit.validateInput()) {
             await BlocProvider.of<LoginCubit>(context).loginApiCall();
           }
         },
