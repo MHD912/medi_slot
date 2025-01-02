@@ -20,7 +20,15 @@ class ErrorDialog extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       title: Text(
         AppStrings.errorOccurred,
+        textAlign: TextAlign.center,
         style: AppStyles.f24w700.copyWith(
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      ).tr(),
+      content: Text(
+        AppStrings.somethingWrong,
+        textAlign: TextAlign.center,
+        style: AppStyles.f16w400.copyWith(
           color: Theme.of(context).colorScheme.onPrimaryContainer,
         ),
       ).tr(),
